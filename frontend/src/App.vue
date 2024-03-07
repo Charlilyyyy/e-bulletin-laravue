@@ -1,26 +1,37 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <NavbarComponent/>
+    <TitleComponent/>
+      <!-- {{ posts }} -->
+      <div v-for="post in posts" :key="post.user">
+        <!-- {{ post }} -->
+        <PostView/>
+      </div>
+      
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import NavbarComponent from './components/NavbarComponent.vue'
+import TitleComponent from './components/TitleComponent.vue'
+import PostView from './components/PostView.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+import { onMounted, ref } from 'vue'
+
+const posts = ref([])
+
+const fetchPosts = async () => {
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/posts');
+    if (!response.ok) {
+      throw new Error('Failed to retrieve data');
+    }
+    const responseData = await response.json();
+    posts.value = responseData;
+  } catch (error) {
+    console.error(error);
   }
 }
-</script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+onMounted(fetchPosts)
+</script>
