@@ -2,27 +2,38 @@
 <div class="post-container">
     <!-- Post Header -->
     <div class="post-header">
-      <img src="profile.jpg" alt="Profile Picture">
+      <img src="../assets/profile-photo.jpeg" alt="Profile Picture">
       <div>
-        <h2>John Doe</h2>
-        <span>Posted on January 1, 2024</span>
+        <h2>{{ props.post.user }}</h2>
+        <span>Posted on {{ props.post.date }}</span>
       </div>
     </div>
     
     <!-- Post Content -->
     <div class="post-content">
-      <p>This is an example post. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      <img src="post-image.jpg" alt="Post Image">
+      <p>{{ props.post.description }}</p>
+      <!-- <img src="" alt="Post Image"> -->
     </div>
     
     <!-- Post Footer -->
     <div class="post-footer">
       <button>Like</button>
-      <button>Comment</button>
-      <button>Share</button>
+      <button class="ms-2">Comment</button>
+      <button class="ms-2">Share</button>
     </div>
   </div>
 </template>
+
+<script setup>
+import {defineProps} from 'vue'
+
+// const {post} = defineProps(['post'])
+
+const props = defineProps({
+  post: Object,
+})
+
+</script>
 
 <style>
 * {
@@ -34,6 +45,10 @@
     body {
       font-family: Arial, sans-serif;
       background-color: #f0f2f5;
+    }
+
+    .ms-2 {
+        margin-left:10px
     }
 
     /* Post Container */

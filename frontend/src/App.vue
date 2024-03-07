@@ -3,10 +3,10 @@
     <NavbarComponent/>
     <TitleComponent/>
       <!-- {{ posts }} -->
-      <div v-for="post in posts" :key="post.user">
+      <!-- <div v-for="post in posts" :key="post.user"> -->
         <!-- {{ post }} -->
-        <PostView/>
-      </div>
+        <PostView v-for="post in posts" :key="post.user" :post="post"/>
+      <!-- </div> -->
       
   </div>
 </template>
@@ -32,6 +32,7 @@ const fetchPosts = async () => {
     console.error(error);
   }
 }
+
 
 onMounted(fetchPosts)
 </script>
